@@ -1,7 +1,7 @@
 class ship{
     length: number;
     hp: number;
-    construcotr(length: number){
+    constructor(length: number){
         this.length = length;
         this.hp = length;
     }
@@ -17,3 +17,5 @@ class ship{
         else {return false};
     }
 }
+
+export {ship};
