@@ -29,6 +29,13 @@ describe("gameboard testing", () => {
       expect(gameboard.board[3][8]).toBe(null);
       expect(gameboard.board[3][9]).toBe(null);
     });
+
+    it("should fail if trying to place a ship where a ship already exists", () => {
+      let firstPlaced: boolean = gameboard.placeShip(4, 4, true, 3);
+      let secondPlaced: boolean = gameboard.placeShip(5, 3, false, 3);
+      expect(firstPlaced).toBeTruthy();
+      expect(secondPlaced).toBeFalsy();
+    });
   });
 
   describe("testing receiving attacks", () => {
@@ -48,6 +55,15 @@ describe("gameboard testing", () => {
     it("should return null if coordinate are out of bounds", () => {
       let status: GridStatus = gameboard.receiveAttack(10, 10);
       expect(status).toBeNull();
+    });
+
+    it("should show that a ship is sunk when sunk with attacks", () => {
+      let placed: boolean = gameboard.placeShip(2, 2, true, 3);
+      let hit1 = gameboard.receiveAttack(2, 2);
+      let hit2 = gameboard.receiveAttack(3, 2);
+      let hit3 = gameboard.receiveAttack(4, 2);
+      expect(gameboard.board[2][2].shipPointer.isSunk()).toBeTruthy();
+      expect(gameboard.gameOver()).toBeTruthy();
     });
   });
 });
