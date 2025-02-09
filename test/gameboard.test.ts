@@ -44,5 +44,10 @@ describe("gameboard testing", () => {
       expect(status).toBe(GridStatus.miss);
       expect(gameboard.board[8][4].status).toBe(GridStatus.miss);
     });
+
+    it("should return null if coordinate are out of bounds", () => {
+      let status: GridStatus = gameboard.receiveAttack(10, 10);
+      expect(status).toBeNull();
+    });
   });
 });
