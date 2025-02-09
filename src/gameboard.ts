@@ -1,9 +1,10 @@
 import { Ship } from "./shipClass";
 
 export enum GridStatus {
-  ship,
-  hit,
-  miss,
+  empty = "EMPTY",
+  ship = "SHIP",
+  hit = "HIT",
+  miss = "MISS",
 }
 
 interface GridObject {
@@ -22,9 +23,13 @@ export class Gameboard {
     for (let i = 0; i < size; i++) {
       this.board[i] = [];
       for (let j = 0; j < size; j++) {
-        this.board[i][j] = null;
+        this.board[i][j] = {
+          shipPointer: null,
+          status: GridStatus.empty,
+        };
       }
     }
+    this.numberOfShips = 0;
   }
   private hasOverlap(
     x: number,
@@ -34,9 +39,9 @@ export class Gameboard {
   ): boolean {
     for (let i = 0; i < length; i++) {
       if (vertical) {
-        if (this.board[x + i][y].status != null) return true;
+        if (this.board[x + i][y].status != GridStatus.empty) return true;
       } else {
-        if (this.board[x][y + i].status != null) return true;
+        if (this.board[x][y + i].status != GridStatus.empty) return true;
       }
     }
     return false;
@@ -49,8 +54,8 @@ export class Gameboard {
   ): boolean {
     let shipToPlace = new Ship(shipLength);
     let outOfBounds = vertical
-      ? x + shipLength > this.gridSize
-      : y + shipLength > this.gridSize;
+      ? x + shipLength >= this.gridSize
+      : y + shipLength >= this.gridSize;
 
     if (outOfBounds) return false;
     if (this.hasOverlap(x, y, vertical, shipLength)) return false;
@@ -67,15 +72,18 @@ export class Gameboard {
   }
 
   receiveAttack(x: number, y: number): GridStatus {
-    if (x > this.gridSize || y > this.gridSize || x < 0 || y < 0) return null;
+    if (x >= this.gridSize || y >= this.gridSize || x < 0 || y < 0) return null;
     if (this.board[x][y].status == GridStatus.hit) return null;
 
     if (this.board[x][y].status == GridStatus.ship) {
       this.board[x][y].status = GridStatus.hit;
       this.board[x][y].shipPointer.hit();
       if (this.board[x][y].shipPointer.isSunk()) this.numberOfShips--;
+      console.log(this.numberOfShips);
+      return GridStatus.hit;
     } else if (this.board[x][y].shipPointer == null) {
-      this.board[x][y].status == GridStatus.miss;
+      this.board[x][y].status = GridStatus.miss;
+      return GridStatus.miss;
     }
   }
   gameOver(): boolean {

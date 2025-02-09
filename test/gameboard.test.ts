@@ -10,7 +10,7 @@ describe("gameboard testing", () => {
 
   describe("testing placeShip()", () => {
     it("should place in regular coordinates", () => {
-      let placed: boolean = gameboard.placeShip(3, 4, true, 2);
+      let placed: boolean = gameboard.placeShip(3, 4, true, 3);
       expect(placed).toBeTruthy();
       expect(gameboard.board[3][4].status).toBe(GridStatus.ship);
       expect(gameboard.board[4][4].status).toBe(GridStatus.ship);
@@ -19,15 +19,15 @@ describe("gameboard testing", () => {
     it("should fail in vertical out of bounds", () => {
       let placed: boolean = gameboard.placeShip(8, 3, true, 3);
       expect(placed).toBeFalsy();
-      expect(gameboard.board[8][3].status).toBe(null);
-      expect(gameboard.board[9][3].status).toBe(null);
+      expect(gameboard.board[8][3].status).toBe(GridStatus.empty);
+      expect(gameboard.board[9][3].status).toBe(GridStatus.empty);
     });
 
     it("should fail in horizontal out of bounds", () => {
       let placed: boolean = gameboard.placeShip(3, 8, false, 3);
       expect(placed).toBeFalsy();
-      expect(gameboard.board[3][8]).toBe(null);
-      expect(gameboard.board[3][9]).toBe(null);
+      expect(gameboard.board[3][8].status).toBe(GridStatus.empty);
+      expect(gameboard.board[3][9].status).toBe(GridStatus.empty);
     });
 
     it("should fail if trying to place a ship where a ship already exists", () => {
@@ -41,9 +41,9 @@ describe("gameboard testing", () => {
   describe("testing receiving attacks", () => {
     it("should recieve hits normally", () => {
       let placed: boolean = gameboard.placeShip(2, 2, true, 3);
-      let status: GridStatus = gameboard.receiveAttack(2, 3);
+      let status: GridStatus = gameboard.receiveAttack(3, 2);
       expect(status).toBe(GridStatus.hit);
-      expect(gameboard.board[2][3].shipPointer.hp).toBe(2);
+      expect(gameboard.board[3][2].shipPointer.hp).toBe(2);
     });
 
     it("should miss if ship is not hit", () => {
