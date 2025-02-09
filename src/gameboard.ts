@@ -1,6 +1,6 @@
 import { Ship } from "./shipClass";
 
-enum GridStatus {
+export enum GridStatus {
   ship,
   hit,
   miss,
@@ -13,13 +13,15 @@ interface GridObject {
 
 export class Gameboard {
   board: GridObject[][];
-  constructor() {}
+  constructor(x: number) {}
   placeShip(
     x: number,
     y: number,
     vertical: boolean,
     shipLength: number,
-  ): void {}
+  ): boolean {
+    return true;
+  }
   receiveAttack(x: number, y: number): GridStatus {
     return null;
   }
