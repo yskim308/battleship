@@ -54,8 +54,8 @@ export class Gameboard {
   ): boolean {
     let shipToPlace = new Ship(shipLength);
     let outOfBounds = vertical
-      ? x + shipLength >= this.gridSize
-      : y + shipLength >= this.gridSize;
+      ? x + shipLength - 1 >= this.gridSize
+      : y + shipLength - 1 >= this.gridSize;
 
     if (outOfBounds) return false;
     if (this.hasOverlap(x, y, vertical, shipLength)) return false;
@@ -79,7 +79,6 @@ export class Gameboard {
       this.board[x][y].status = GridStatus.hit;
       this.board[x][y].shipPointer.hit();
       if (this.board[x][y].shipPointer.isSunk()) this.numberOfShips--;
-      console.log(this.numberOfShips);
       return GridStatus.hit;
     } else if (this.board[x][y].shipPointer == null) {
       this.board[x][y].status = GridStatus.miss;
