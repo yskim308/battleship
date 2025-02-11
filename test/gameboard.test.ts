@@ -31,7 +31,7 @@ describe("gameboard testing", () => {
       expect(gameboard.board[9][3].status).toBe(GridStatus.empty);
     });
     it("should fail in exact vertical bounds", () => {
-      let placed: boolean = gameboard.placeShip(7, 5, true, 3);
+      let placed: boolean = gameboard.placeShip(8, 5, true, 3);
       expect(placed).toBeFalsy();
       expect(gameboard.board[7][5].status).toBe(GridStatus.empty);
       expect(gameboard.board[8][5].status).toBe(GridStatus.empty);
