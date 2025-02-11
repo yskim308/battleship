@@ -16,11 +16,26 @@ describe("gameboard testing", () => {
       expect(gameboard.board[4][4].status).toBe(GridStatus.ship);
       expect(gameboard.board[5][4].status).toBe(GridStatus.ship);
     });
+    it("should place in vertical edges", () => {
+      let placed: boolean = gameboard.placeShip(7, 6, true, 3);
+      expect(placed).toBeTruthy();
+      expect(gameboard.board[7][6].status).toBe(GridStatus.ship);
+      expect(gameboard.board[8][6].status).toBe(GridStatus.ship);
+      expect(gameboard.board[9][6].status).toBe(GridStatus.ship);
+    });
+
     it("should fail in vertical out of bounds", () => {
       let placed: boolean = gameboard.placeShip(8, 3, true, 3);
       expect(placed).toBeFalsy();
       expect(gameboard.board[8][3].status).toBe(GridStatus.empty);
       expect(gameboard.board[9][3].status).toBe(GridStatus.empty);
+    });
+    it("should fail in exact vertical bounds", () => {
+      let placed: boolean = gameboard.placeShip(7, 5, true, 3);
+      expect(placed).toBeFalsy();
+      expect(gameboard.board[7][5].status).toBe(GridStatus.empty);
+      expect(gameboard.board[8][5].status).toBe(GridStatus.empty);
+      expect(gameboard.board[9][5].status).toBe(GridStatus.empty);
     });
 
     it("should fail in horizontal out of bounds", () => {
@@ -28,6 +43,14 @@ describe("gameboard testing", () => {
       expect(placed).toBeFalsy();
       expect(gameboard.board[3][8].status).toBe(GridStatus.empty);
       expect(gameboard.board[3][9].status).toBe(GridStatus.empty);
+    });
+
+    it("should place in horizontal edges", () => {
+      let placed: boolean = gameboard.placeShip(4, 7, false, 3);
+      expect(placed).toBeTruthy();
+      expect(gameboard.board[4][7].status).toBe(GridStatus.ship);
+      expect(gameboard.board[4][8].status).toBe(GridStatus.ship);
+      expect(gameboard.board[4][9].status).toBe(GridStatus.ship);
     });
 
     it("should fail if trying to place a ship where a ship already exists", () => {
