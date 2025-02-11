@@ -1,6 +1,6 @@
 import { Gameboard } from "./gameboard";
 
-enum PlayerStatus {
+export enum PlayerStatus {
   player = "PLAYER",
   computer = "COMPUTER",
 }
