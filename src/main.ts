@@ -14,8 +14,25 @@ function placeRandomShip(length: number, board: Gameboard) {
   }
 }
 
-function waitClick() {
-  // return promise for waiting for a click
+function waitClick(): Promise<{ row: number; col: number }> {
+  return new Promise((resolve) => {
+    const board = document.querySelector("#computerBoard");
+    const handleClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      // Check if we clicked on a grid cell
+      if (target.dataset.row && target.dataset.col) {
+        // Remove the event listener to prevent multiple triggers
+        board.removeEventListener("click", handleClick);
+        // Resolve with the row and column data
+        resolve({
+          row: parseInt(target.dataset.row),
+          col: parseInt(target.dataset.col),
+        });
+      }
+    };
+    // Add click listener to the board (using event delegation)
+    board.addEventListener("click", handleClick);
+  });
 }
 
 async function playGame() {
