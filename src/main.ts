@@ -4,13 +4,18 @@ import { Ship } from "./shipClass";
 import { Gameboard } from "./gameboard";
 import { updateGrid } from "./domManipulator";
 
+function getRandomCoordinates(): { row: number; col: number } {
+  const randomRow: number = Math.floor(Math.random() * 10);
+  const randomCol: number = Math.floor(Math.random() * 10);
+  return { row: randomRow, col: randomCol };
+}
+
 function placeRandomShip(length: number, board: Gameboard) {
   let placed: boolean = false;
   while (!placed) {
-    const randomRow: number = Math.floor(Math.random() * 10);
-    const randomCol: number = Math.floor(Math.random() * 10);
+    const cord: { row: number; col: number } = getRandomCoordinates();
     const randomOrientation: boolean = Math.random() < 0.5;
-    placed = board.placeShip(randomRow, randomCol, randomOrientation, length);
+    placed = board.placeShip(cord.row, cord.col, randomOrientation, length);
   }
 }
 
@@ -37,4 +42,5 @@ function waitClick(): Promise<{ row: number; col: number }> {
 
 async function playGame() {
   //main play function should return when game over
+  let;
 }
