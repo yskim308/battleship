@@ -4,7 +4,7 @@ enum PlayerStatus {
   player = "PLAYER",
   computer = "COMPUTER",
 }
-class Player {
+export class Player {
   status: PlayerStatus;
   board: Gameboard;
   constructor(status: PlayerStatus) {
