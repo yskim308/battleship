@@ -19,6 +19,15 @@ function placeRandomShip(length: number, board: Gameboard) {
   }
 }
 
+function fillBoard(board: Gameboard) {
+  // should be lenghts of 2, 3, 3, 4, 5
+  placeRandomShip(2, board);
+  placeRandomShip(3, board);
+  placeRandomShip(3, board);
+  placeRandomShip(4, board);
+  placeRandomShip(5, board);
+}
+
 function waitClick(): Promise<{ row: number; col: number }> {
   return new Promise((resolve) => {
     const board = document.querySelector("#computerBoard");
@@ -42,5 +51,5 @@ function waitClick(): Promise<{ row: number; col: number }> {
 
 async function playGame() {
   //main play function should return when game over
-  let;
+  let playerTurn: boolean = true;
 }
