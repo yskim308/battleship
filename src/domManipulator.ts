@@ -1,4 +1,5 @@
 import { Player, PlayerStatus } from "./playerClass";
+import { GridStatus } from "./gameboard";
 
 export function updateGrid(player: Player): void {
   // assume the grid will always be of size 10
@@ -19,7 +20,7 @@ export function updateGrid(player: Player): void {
       const gridObjectDiv = document.createElement("div");
       gridObjectDiv.dataset.row = `${i}`;
       gridObjectDiv.dataset.col = `${j}`;
-      gridObjectDiv.innerText = player.status;
+      gridObjectDiv.innerText = player.board.board[i][j].status;
       board.appendChild(gridObjectDiv);
     }
   }
