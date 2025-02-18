@@ -8,6 +8,9 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".json"], // Add the extensions here
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
