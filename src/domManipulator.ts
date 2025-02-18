@@ -18,9 +18,10 @@ export function updateGrid(player: Player): void {
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       const gridObjectDiv = document.createElement("div");
+      gridObjectDiv.classList.add("p-3");
       gridObjectDiv.dataset.row = `${i}`;
       gridObjectDiv.dataset.col = `${j}`;
-      gridObjectDiv.innerText = player.board.board[i][j].status;
+      gridObjectDiv.innerText = player.board.board[i][j].status.charAt(0);
       board.appendChild(gridObjectDiv);
     }
   }

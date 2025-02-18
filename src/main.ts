@@ -3,7 +3,6 @@ import { Player, PlayerStatus } from "./playerClass";
 import { Ship } from "./shipClass";
 import { Gameboard } from "./gameboard";
 import { updateGrid } from "./domManipulator";
-import { comma } from "postcss/lib/list";
 
 function getRandomCoordinates(): { row: number; col: number } {
   const randomRow: number = Math.floor(Math.random() * 10);
@@ -50,22 +49,27 @@ function waitClick(): Promise<{ row: number; col: number }> {
   });
 }
 
-async function playGame() {
+async function playGame(player: Player, computer: Player) {
   //main play function should return when game over
   let playerTurn: boolean = true;
-  const player = new Player(PlayerStatus.player);
-  const computer = new Player(PlayerStatus.computer);
   let gameOver: boolean = false;
 
   while (!gameOver) {
     if (playerTurn) {
       let coordinates: { row: number; col: number } = await waitClick();
+      console.log(
+        `receieved attack from player at ${coordinates.row}, ${coordinates.col}`,
+      );
       computer.board.receiveAttack(coordinates.row, coordinates.col);
       playerTurn = false;
       updateGrid(computer);
       gameOver = computer.board.gameOver();
+      console.log(gameOver);
     } else {
-      let coordinates: { row: number; col: number };
+      let coordinates: { row: number; col: number } = getRandomCoordinates();
+      console.log(
+        `receieved attack from computer at ${coordinates.row}, ${coordinates.col}`,
+      );
       player.board.receiveAttack(coordinates.row, coordinates.col);
       playerTurn = true;
       updateGrid(player);
@@ -74,5 +78,13 @@ async function playGame() {
   }
 }
 
+console.log("creating the board");
+const player = new Player(PlayerStatus.player);
+fillBoard(player.board);
+const computer = new Player(PlayerStatus.computer);
+fillBoard(computer.board);
+updateGrid(player);
+updateGrid(computer);
+
 console.log("starting game");
-playGame();
+playGame(player, computer);
