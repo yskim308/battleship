@@ -56,26 +56,32 @@ async function playGame(player: Player, computer: Player) {
 
   while (!gameOver) {
     if (playerTurn) {
-      let coordinates: { row: number; col: number } = await waitClick();
-      console.log(
-        `receieved attack from player at ${coordinates.row}, ${coordinates.col}`,
-      );
-      computer.board.receiveAttack(coordinates.row, coordinates.col);
+      let validAttack = false;
+      while (!validAttack) {
+        let coordinates: { row: number; col: number } = await waitClick();
+        validAttack = computer.board.receiveAttack(
+          coordinates.row,
+          coordinates.col,
+        );
+      }
       playerTurn = false;
       updateGrid(computer);
       gameOver = computer.board.gameOver();
-      console.log(gameOver);
     } else {
       let coordinates: { row: number; col: number } = getRandomCoordinates();
-      console.log(
-        `receieved attack from computer at ${coordinates.row}, ${coordinates.col}`,
-      );
-      player.board.receiveAttack(coordinates.row, coordinates.col);
+      let validAttack = false;
+      while (!validAttack) {
+        validAttack = player.board.receiveAttack(
+          coordinates.row,
+          coordinates.col,
+        );
+      }
       playerTurn = true;
       updateGrid(player);
       gameOver = computer.board.gameOver();
     }
   }
+  console.log("game over now");
 }
 
 console.log("creating the board");

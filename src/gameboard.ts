@@ -71,18 +71,22 @@ export class Gameboard {
     return true;
   }
 
-  receiveAttack(x: number, y: number): GridStatus {
+  receiveAttack(x: number, y: number): boolean {
     if (x >= this.gridSize || y >= this.gridSize || x < 0 || y < 0) return null;
-    if (this.board[x][y].status == GridStatus.hit) return null;
+    if (
+      this.board[x][y].status == GridStatus.hit ||
+      this.board[x][y].status == GridStatus.miss
+    )
+      return false;
 
     if (this.board[x][y].status == GridStatus.ship) {
       this.board[x][y].status = GridStatus.hit;
       this.board[x][y].shipPointer.hit();
       if (this.board[x][y].shipPointer.isSunk()) this.numberOfShips--;
-      return GridStatus.hit;
+      return true;
     } else if (this.board[x][y].shipPointer == null) {
       this.board[x][y].status = GridStatus.miss;
-      return GridStatus.miss;
+      return true;
     }
   }
   gameOver(): boolean {
