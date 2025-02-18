@@ -3,6 +3,7 @@ import { Player, PlayerStatus } from "./playerClass";
 import { Ship } from "./shipClass";
 import { Gameboard } from "./gameboard";
 import { updateGrid } from "./domManipulator";
+import { comma } from "postcss/lib/list";
 
 function getRandomCoordinates(): { row: number; col: number } {
   const randomRow: number = Math.floor(Math.random() * 10);
@@ -52,4 +53,26 @@ function waitClick(): Promise<{ row: number; col: number }> {
 async function playGame() {
   //main play function should return when game over
   let playerTurn: boolean = true;
+  const player = new Player(PlayerStatus.player);
+  const computer = new Player(PlayerStatus.computer);
+  let gameOver: boolean = false;
+
+  while (!gameOver) {
+    if (playerTurn) {
+      let coordinates: { row: number; col: number } = await waitClick();
+      computer.board.receiveAttack(coordinates.row, coordinates.col);
+      playerTurn = false;
+      updateGrid(computer);
+      gameOver = computer.board.gameOver();
+    } else {
+      let coordinates: { row: number; col: number };
+      player.board.receiveAttack(coordinates.row, coordinates.col);
+      playerTurn = true;
+      updateGrid(player);
+      gameOver = computer.board.gameOver();
+    }
+  }
 }
+
+console.log("starting game");
+playGame();
