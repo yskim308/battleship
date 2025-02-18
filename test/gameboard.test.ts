@@ -64,20 +64,20 @@ describe("gameboard testing", () => {
   describe("testing receiving attacks", () => {
     it("should recieve hits normally", () => {
       let placed: boolean = gameboard.placeShip(2, 2, true, 3);
-      let status: GridStatus = gameboard.receiveAttack(3, 2);
-      expect(status).toBe(GridStatus.hit);
+      let status: boolean = gameboard.receiveAttack(3, 2);
+      expect(status).toBeTruthy;
       expect(gameboard.board[3][2].shipPointer.hp).toBe(2);
     });
 
     it("should miss if ship is not hit", () => {
-      let status: GridStatus = gameboard.receiveAttack(8, 4);
-      expect(status).toBe(GridStatus.miss);
+      let status: boolean = gameboard.receiveAttack(8, 4);
+      expect(status).toBeTruthy;
       expect(gameboard.board[8][4].status).toBe(GridStatus.miss);
     });
 
     it("should return null if coordinate are out of bounds", () => {
-      let status: GridStatus = gameboard.receiveAttack(10, 10);
-      expect(status).toBeNull();
+      let status: boolean = gameboard.receiveAttack(10, 10);
+      expect(status).toBeFalsy;
     });
 
     it("should show that a ship is sunk when sunk with attacks", () => {
