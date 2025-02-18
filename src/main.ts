@@ -81,7 +81,6 @@ async function playGame(player: Player, computer: Player) {
       gameOver = computer.board.gameOver();
     }
   }
-  console.log("game over now");
 }
 
 console.log("creating the board");
