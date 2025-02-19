@@ -55,17 +55,14 @@ async function playGame(player: Player, computer: Player) {
   let gameOver: boolean = false;
 
   while (!gameOver) {
-    if (playerTurn) console.log("player turn");
     if (playerTurn) {
       let validAttack = false;
       while (!validAttack) {
         let coordinates: { row: number; col: number } = await waitClick();
-        console.log("clicked on: " + coordinates.row + coordinates.col);
         validAttack = computer.board.receiveAttack(
           coordinates.row,
           coordinates.col,
         );
-        if (!validAttack) console.log("attack is invvalid");
       }
       playerTurn = false;
       updateGrid(computer);
@@ -84,9 +81,9 @@ async function playGame(player: Player, computer: Player) {
       gameOver = computer.board.gameOver();
     }
   }
+  alert("game over");
 }
 
-console.log("creating the board");
 const player = new Player(PlayerStatus.player);
 fillBoard(player.board);
 const computer = new Player(PlayerStatus.computer);
@@ -94,5 +91,4 @@ fillBoard(computer.board);
 updateGrid(player);
 updateGrid(computer);
 
-console.log("starting game");
 playGame(player, computer);
