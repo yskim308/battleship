@@ -81,7 +81,6 @@ async function playGame(player: Player, computer: Player) {
       gameOver = computer.board.gameOver();
     }
   }
-  alert("game over");
 }
 
 const player = new Player(PlayerStatus.player);

@@ -6,10 +6,25 @@
         <title></title>
     </head>
     <body class="h-full flex flex-col">
-        <h1>hello world</h1>
-        <div id="contentDiv" class="flex justify-around">
-            <div id="playerBoard" class="grid grid-cols-10 p-10"></div>
-            <div id="computerBoard" class="grid grid-cols-10 p-10"></div>
+        <div id="header" class="flex justify-center">
+            <h1 class="font-extrabold text-5xl p-4">Battleship!</h1>
+        </div>
+        <div id="contentDiv" class="flex justify-center">
+            <div class="pt-10 px-20">
+                <h1 class="flex justify-center font-semibold text-xl pb-3">
+                    Your Board
+                </h1>
+                <div id="playerBoard" class="grid grid-cols-10"></div>
+            </div>
+            <div id="infoDiv" class="flex flex-col justify-center">
+                logic here
+            </div>
+            <div class="pt-10 px-20">
+                <h1 class="flex justify-center font-semibold text-xl pb-3">
+                    Computer's Board
+                </h1>
+                <div id="computerBoard" class="grid grid-cols-10"></div>
+            </div>
         </div>
         <div id="footer" class="mt-auto flex justify-center">footer!</div>
     </body>
