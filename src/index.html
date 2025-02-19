@@ -11,8 +11,34 @@
         </div>
         <div id="contentDiv" class="flex justify-center">
             <div class="pt-10 px-20">
-                <h1 class="flex justify-center font-semibold text-xl pb-3">
-                    Your Board
+                <h1 class="flex justify-between font-semibold text-xl">
+                    <p1>Your Board</p1>
+                    <div class="flex">
+                        <button id="shufle">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                class="w-8"
+                            >
+                                <title>shuffle</title>
+                                <path
+                                    d="M14.83,13.41L13.42,14.82L16.55,17.95L14.5,20H20V14.5L17.96,16.54L14.83,13.41M14.5,4L16.54,6.04L4,18.59L5.41,20L17.96,7.46L20,9.5V4M10.59,9.17L5.41,4L4,5.41L9.17,10.58L10.59,9.17Z"
+                                />
+                            </svg>
+                        </button>
+                        <button id="restart">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                class="w-8"
+                            >
+                                <title>restart</title>
+                                <path
+                                    d="M12,4C14.1,4 16.1,4.8 17.6,6.3C20.7,9.4 20.7,14.5 17.6,17.6C15.8,19.5 13.3,20.2 10.9,19.9L11.4,17.9C13.1,18.1 14.9,17.5 16.2,16.2C18.5,13.9 18.5,10.1 16.2,7.7C15.1,6.6 13.5,6 12,6V10.6L7,5.6L12,0.6V4M6.3,17.6C3.7,15 3.3,11 5.1,7.9L6.6,9.4C5.5,11.6 5.9,14.4 7.8,16.2C8.3,16.7 8.9,17.1 9.6,17.4L9,19.4C8,19 7.1,18.4 6.3,17.6Z"
+                                />
+                            </svg>
+                        </button>
+                    </div>
                 </h1>
                 <div id="playerBoard" class="grid grid-cols-10"></div>
             </div>
@@ -20,9 +46,7 @@
                 <div id="information"></div>
             </div>
             <div class="pt-10 px-20">
-                <h1 class="flex justify-center font-semibold text-xl pb-3">
-                    Computer's Board
-                </h1>
+                <h1 class="flex font-semibold text-xl">Computer's Board</h1>
                 <div id="computerBoard" class="grid grid-cols-10"></div>
             </div>
         </div>
