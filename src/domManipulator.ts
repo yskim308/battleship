@@ -26,6 +26,7 @@ export function updateGrid(player: Player): void {
       gridObjectDiv.dataset.col = `${j}`;
       let status: GridStatus = player.board.board[i][j].status;
       const imageDiv = document.createElement("img");
+      imageDiv.style.pointerEvents = "none";
       if (status == GridStatus.ship) {
         imageDiv.src = ship;
       } else if (status == GridStatus.hit) {
