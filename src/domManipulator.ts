@@ -45,3 +45,9 @@ export function updateGrid(player: Player): void {
     }
   }
 }
+
+export function updateTurn(playerTurn: boolean): void {
+  const informationDiv: HTMLElement = document.querySelector("#information");
+  let turnString: string = playerTurn ? "Your turn!" : "Computer turn!";
+  informationDiv.innerText = turnString;
+}

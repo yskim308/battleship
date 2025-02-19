@@ -2,7 +2,7 @@ import "./styles.css";
 import { Player, PlayerStatus } from "./playerClass";
 import { Ship } from "./shipClass";
 import { Gameboard } from "./gameboard";
-import { updateGrid } from "./domManipulator";
+import { updateGrid, updateTurn } from "./domManipulator";
 
 function getRandomCoordinates(): { row: number; col: number } {
   const randomRow: number = Math.floor(Math.random() * 10);
@@ -56,6 +56,7 @@ async function playGame(player: Player, computer: Player) {
 
   while (!gameOver) {
     if (playerTurn) {
+      updateTurn(playerTurn);
       let validAttack = false;
       while (!validAttack) {
         let coordinates: { row: number; col: number } = await waitClick();
@@ -68,6 +69,7 @@ async function playGame(player: Player, computer: Player) {
       updateGrid(computer);
       gameOver = computer.board.gameOver();
     } else {
+      updateTurn(playerTurn);
       let validAttack = false;
       while (!validAttack) {
         let coordinates: { row: number; col: number } = getRandomCoordinates();
@@ -76,6 +78,7 @@ async function playGame(player: Player, computer: Player) {
           coordinates.col,
         );
       }
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       playerTurn = true;
       updateGrid(player);
       gameOver = computer.board.gameOver();
