@@ -33,8 +33,9 @@ function waitClick(): Promise<{ row: number; col: number }> {
     const board = document.querySelector("#computerBoard");
     const handleClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
+      const cell = target.tagName == "IMG" ? target.parentElement : target;
       // Check if we clicked on a grid cell
-      if (target.dataset.row && target.dataset.col) {
+      if (cell?.dataset.row && cell?.dataset.col) {
         // Remove the event listener to prevent multiple triggers
         board.removeEventListener("click", handleClick);
         // Resolve with the row and column data
