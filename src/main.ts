@@ -78,7 +78,7 @@ async function playGame(player: Player, computer: Player) {
           coordinates.col,
         );
       }
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       playerTurn = true;
       updateGrid(player);
       gameOver = computer.board.gameOver();
