@@ -21,7 +21,13 @@ export function updateGrid(player: Player): void {
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       const gridObjectDiv = document.createElement("div");
-      gridObjectDiv.classList.add("h-12", "w-12", "border", "border-red");
+      gridObjectDiv.classList.add(
+        "h-12",
+        "w-12",
+        "border",
+        "border-red",
+        "hover:bg-red-100",
+      );
       gridObjectDiv.dataset.row = `${i}`;
       gridObjectDiv.dataset.col = `${j}`;
       let status: GridStatus = player.board.board[i][j].status;
