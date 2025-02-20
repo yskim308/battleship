@@ -33,7 +33,9 @@ export function updateGrid(player: Player): void {
       let status: GridStatus = player.board.board[i][j].status;
       const imageDiv = document.createElement("img");
       imageDiv.style.pointerEvents = "none";
-      if (status == GridStatus.ship) {
+      let isPlayer: boolean =
+        player.status === PlayerStatus.player ? true : false;
+      if (status == GridStatus.ship && isPlayer) {
         imageDiv.src = ship;
       } else if (status == GridStatus.hit) {
         imageDiv.src = hit;
