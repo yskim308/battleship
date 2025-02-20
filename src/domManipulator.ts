@@ -47,7 +47,13 @@ export function updateGrid(player: Player): void {
 }
 
 export function updateTurn(playerTurn: boolean): void {
-  const informationDiv: HTMLElement = document.querySelector("#information");
-  let turnString: string = playerTurn ? "Your turn!" : "Computer turn!";
-  informationDiv.innerText = turnString;
+  const informationDiv = document.querySelector("#information");
+  const spinner = document.querySelector("#spinner");
+  if (playerTurn) {
+    informationDiv.classList.remove("hidden");
+    spinner.classList.add("hidden");
+  } else {
+    informationDiv.classList.add("hidden");
+    spinner.classList.remove("hidden");
+  }
 }
