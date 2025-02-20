@@ -86,11 +86,29 @@ async function playGame(player: Player, computer: Player) {
   }
 }
 
-const player = new Player(PlayerStatus.player);
-fillBoard(player.board);
-const computer = new Player(PlayerStatus.computer);
-fillBoard(computer.board);
-updateGrid(player);
-updateGrid(computer);
+let player, computer;
+function createGame() {
+  player = new Player(PlayerStatus.player);
+  fillBoard(player.board);
+  computer = new Player(PlayerStatus.computer);
+  fillBoard(computer.board);
+  updateGrid(player);
+  updateGrid(computer);
+  playGame(player, computer);
 
-playGame(player, computer);
+  // event listener for restarting the game
+  const restartButton = document.querySelector("#restart");
+  restartButton.addEventListener("click", resetGame);
+}
+
+function resetGame() {
+  player = new Player(PlayerStatus.player);
+  fillBoard(player.board);
+  computer = new Player(PlayerStatus.computer);
+  fillBoard(computer.board);
+  updateGrid(player);
+  updateGrid(computer);
+  playGame(player, computer);
+}
+
+createGame();
