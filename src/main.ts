@@ -2,7 +2,7 @@ import "./styles.css";
 import { Player, PlayerStatus } from "./playerClass";
 import { Ship } from "./shipClass";
 import { Gameboard } from "./gameboard";
-import { updateGrid, updateTurn } from "./domManipulator";
+import { updateCell, updateGrid, updateTurn } from "./domManipulator";
 
 function getRandomCoordinates(): { row: number; col: number } {
   const randomRow: number = Math.floor(Math.random() * 10);
@@ -58,21 +58,23 @@ async function playGame(player: Player, computer: Player) {
     if (playerTurn) {
       updateTurn(playerTurn);
       let validAttack = false;
+      let coordinates: { row: number; col: number };
       while (!validAttack) {
-        let coordinates: { row: number; col: number } = await waitClick();
+        coordinates = await waitClick();
         validAttack = computer.board.receiveAttack(
           coordinates.row,
           coordinates.col,
         );
       }
+      updateCell(computer, coordinates.row, coordinates.col);
       playerTurn = false;
-      updateGrid(computer);
       gameOver = computer.board.gameOver();
     } else {
       updateTurn(playerTurn);
       let validAttack = false;
+      let coordinates: { row: number; col: number };
       while (!validAttack) {
-        let coordinates: { row: number; col: number } = getRandomCoordinates();
+        coordinates = getRandomCoordinates();
         validAttack = player.board.receiveAttack(
           coordinates.row,
           coordinates.col,
@@ -80,7 +82,7 @@ async function playGame(player: Player, computer: Player) {
       }
       await new Promise((resolve) => setTimeout(resolve, 1000));
       playerTurn = true;
-      updateGrid(player);
+      updateCell(player, coordinates.row, coordinates.col);
       gameOver = computer.board.gameOver();
     }
   }

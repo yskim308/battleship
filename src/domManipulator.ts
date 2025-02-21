@@ -48,6 +48,30 @@ export function updateGrid(player: Player): void {
   }
 }
 
+export function updateCell(player: Player, row: number, col: number) {
+  let isPlayer: boolean = player.status === PlayerStatus.player ? true : false;
+  const board = isPlayer
+    ? document.querySelector("#playerBoard")
+    : document.querySelector("#computerBoard");
+  // select the cell and remove children
+  let cell = board.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+  while (cell.firstChild) {
+    cell.removeChild(cell.firstChild);
+  }
+  // set the inside image according to the status
+  let status = player.board.board[row][col].status;
+  const imageDiv = document.createElement("img");
+  imageDiv.style.pointerEvents = "none";
+  if (status == GridStatus.ship && isPlayer) {
+    imageDiv.src = ship;
+  } else if (status == GridStatus.hit) {
+    imageDiv.src = hit;
+  } else if (status == GridStatus.miss) {
+    imageDiv.src = miss;
+  }
+  cell.appendChild(imageDiv);
+}
+
 export function updateTurn(playerTurn: boolean): void {
   const informationDiv = document.querySelector("#information");
   const spinner = document.querySelector("#spinner");
