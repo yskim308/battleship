@@ -49,12 +49,14 @@ function waitClick(): Promise<{ row: number; col: number }> {
   });
 }
 
-async function playGame(player: Player, computer: Player) {
+let controller = new AbortController();
+async function playGame(player: Player, computer: Player, signal: AbortSignal) {
   //main play function should return when game over
   let playerTurn: boolean = true;
   let gameOver: boolean = false;
 
   while (!gameOver) {
+    if (signal.aborted) break;
     if (playerTurn) {
       updateTurn(playerTurn);
       let validAttack = false;
@@ -66,7 +68,11 @@ async function playGame(player: Player, computer: Player) {
           coordinates.col,
         );
       }
+      if (signal.aborted) break;
       updateCell(computer, coordinates.row, coordinates.col);
+      console.log(
+        `calling update cell at ${coordinates.row}, ${coordinates.col}`,
+      );
       playerTurn = false;
       gameOver = computer.board.gameOver();
     } else {
@@ -80,6 +86,7 @@ async function playGame(player: Player, computer: Player) {
           coordinates.col,
         );
       }
+      if (signal.aborted) break;
       await new Promise((resolve) => setTimeout(resolve, 1000));
       playerTurn = true;
       updateCell(player, coordinates.row, coordinates.col);
@@ -90,13 +97,14 @@ async function playGame(player: Player, computer: Player) {
 
 let player, computer;
 function createGame() {
+  controller = new AbortController();
   player = new Player(PlayerStatus.player);
   fillBoard(player.board);
   computer = new Player(PlayerStatus.computer);
   fillBoard(computer.board);
   updateGrid(player);
   updateGrid(computer);
-  playGame(player, computer);
+  playGame(player, computer, controller.signal);
 
   // event listener for restarting the game
   const restartButton = document.querySelector("#restart");
@@ -104,13 +112,15 @@ function createGame() {
 }
 
 function resetGame() {
+  controller.abort();
   player = new Player(PlayerStatus.player);
   fillBoard(player.board);
   computer = new Player(PlayerStatus.computer);
   fillBoard(computer.board);
   updateGrid(player);
   updateGrid(computer);
-  playGame(player, computer);
+  controller = new AbortController();
+  playGame(player, computer, controller.signal);
 }
 
 createGame();
