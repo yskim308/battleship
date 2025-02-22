@@ -66,6 +66,7 @@ export function updateCell(player: Player, row: number, col: number) {
     imageDiv.src = ship;
   } else if (status == GridStatus.hit) {
     imageDiv.src = hit;
+    cell.classList.add("bg-red-200");
   } else if (status == GridStatus.miss) {
     imageDiv.src = miss;
   }
